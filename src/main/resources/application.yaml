@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: ghostnet
+  datasource:
+    url: jdbc:mysql://localhost:3306/ghostnet?useSSL=false&serverTimezone=UTC
+    username: fabian
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+
+server:
+  port: 8080
