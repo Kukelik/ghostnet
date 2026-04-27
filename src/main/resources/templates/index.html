@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Ghost Net Fishing</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #4a90a4; color: white; }
-        tr:nth-child(even) { background-color: #f2f2f2; }
-        .btn { padding: 6px 12px; background-color: #4a90a4; color: white;
-            border: none; cursor: pointer; text-decoration: none; border-radius: 4px; }
-        .btn-danger { background-color: #e74c3c; }
-        .nav { margin-bottom: 20px; }
-        .nav a { margin-right: 15px; color: #4a90a4; text-decoration: none; font-weight: bold; }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script th:src="@{/js/map.js}"></script>
 </head>
-<body>
-<h1>🌊 Ghost Net Fishing</h1>
-<div class="nav">
-    <a href="/report">Geisternetz melden</a>
-    <a href="/nets-to-recover">Zu bergende Netze</a>
-    <a href="/map">🗺️ Weltkarte</a>
+
+<body class="container">
+<div class="d-flex flex-column align-items-center">
+    <h1>GHOST NET FISHING</h1>
+    <hr>
+    <div class="nav">
+        <a href="/report" class="mx-2">Geisternetz melden</a>
+        <span class="mx-1">|</span>
+        <a href="/nets-to-recover" class="mx-2">Zu bergende Netze</a>
+        <span class="mx-1">|</span>
+        <a href="/map" class="mx-2">🗺️ Weltkarte</a>
+    </div>
 </div>
 
 <h2>Alle Geisternetze</h2>
@@ -47,15 +44,18 @@
         <td th:text="${net.recoveringPerson != null ? net.recoveringPerson.name : '-'}"></td>
         <td>
             <a th:href="@{/recover/{id}(id=${net.id})}" class="btn"
-               th:if="${net.status.name() == 'REPORTED'}">Bergen</a>
+               th:if="${net.status.name() == 'GEMELDET'}">Bergen</a>
             <form th:action="@{/mark-recovered/{id}(id=${net.id})}" method="post"
                   style="display:inline"
-                  th:if="${net.status.name() == 'RECOVERY_PENDING'}">
+                  th:if="${net.status.name() == 'BERGUNG_AUSSTEHEND'}">
                 <button type="submit" class="btn btn-danger">Als geborgen markieren</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+    <p class="text-center" th:if="${#lists.isEmpty(nets)}" style="color: #888; margin-top: 15px;">
+        Keine Geisternetze vorhanden.
+    </p>
 </body>
 </html>

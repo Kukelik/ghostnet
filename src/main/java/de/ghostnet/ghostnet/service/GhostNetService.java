@@ -9,7 +9,6 @@ import de.ghostnet.ghostnet.repository.GhostNetRepository;
 import de.ghostnet.ghostnet.repository.RecoveringPersonRepository;
 import de.ghostnet.ghostnet.repository.ReportingPersonRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.bcel.Const;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public class GhostNetService {
             reportingPersonRepository.save(reportingPerson);
             ghostNet.setReportingPerson(reportingPerson);
         }
-        ghostNet.setStatus(NetStatus.REPORTED);
+        ghostNet.setStatus(NetStatus.GEMELDET);
         return ghostNetRepository.save(ghostNet);
     }
 
@@ -45,20 +44,20 @@ public class GhostNetService {
         recoveringPersonRepository.save(newPerson);
 
         net.setRecoveringPerson(newPerson);
-        net.setStatus(NetStatus.RECOVERY_PENDING);
+        net.setStatus(NetStatus.BERGUNG_AUSSTEHEND);
         return ghostNetRepository.save(net);
     }
 
     // MUST 3: Alle noch zu bergenden Netze anzeigen
     public List<GhostNet> getNetsToRecover() {
-        return ghostNetRepository.findByStatusNot(NetStatus.RECOVERED);
+        return ghostNetRepository.findByStatusNot(NetStatus.GEBORGEN);
     }
 
     // MUST 4: Geisternetz als geborgen markieren
     public GhostNet markAsRecovered(Long netId) {
         GhostNet net = ghostNetRepository.findById(netId)
                 .orElseThrow(() -> new RuntimeException(ghostNetNotFound));
-        net.setStatus(NetStatus.RECOVERED);
+        net.setStatus(NetStatus.GEBORGEN);
         return ghostNetRepository.save(net);
     }
 
@@ -79,7 +78,7 @@ public class GhostNetService {
     }
 
     public List<GhostNetMapDto> getNetsForMap() {
-        return ghostNetRepository.findByStatusNot(NetStatus.RECOVERED)
+        return ghostNetRepository.findByStatusNot(NetStatus.GEBORGEN)
                 .stream()
                 .map(net -> new GhostNetMapDto(
                         net.getId(),

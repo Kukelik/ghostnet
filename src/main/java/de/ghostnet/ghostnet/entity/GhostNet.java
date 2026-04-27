@@ -30,11 +30,11 @@ public class GhostNet {
     private ReportingPerson reportingPerson;
 
     public enum NetSize {
-        SMALL, MEDIUM, LARGE, VERY_LARGE
+        KLEIN, MITTELGROSS, GROSS, SEHR_GROSS
     }
 
     public enum NetStatus {
-        REPORTED, RECOVERY_PENDING, RECOVERED, LOST
+        GEMELDET, BERGUNG_AUSSTEHEND, GEBORGEN
     }
 
 }

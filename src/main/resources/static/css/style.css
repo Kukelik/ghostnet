@@ -1,0 +1,43 @@
+html{ background: #ebf8ff; }
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+th { background-color: #4a90a4; color: white; }
+tr:nth-child(even) { background-color: #f2f2f2; }
+.btn {
+    padding: 6px 12px !important;
+    background-color: #4a90a4 !important;
+    color: white !important;
+    border: none !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    border-radius: 4px !important; }
+.nav {
+    margin-bottom: 20px;
+}
+.active{
+    color: #29525d !important;
+}
+.nav a {
+    color: #4a90a4;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav span{
+    color: #4a90a4;
+    font-weight: bold;
+}
+#map { height: 600px; width: 100%; border-radius: 8px; margin-top: 20px; }
+.back { color: #4a90a4; text-decoration: none; }
+.form-group { margin-bottom: 15px; }
+label { display: block; margin-bottom: 5px; font-weight: bold; }
+input, select { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 4px; }
+h2 { color: #4a90a4; }
+input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 4px; }
+.info-box { background-color: #f0f7fa; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
