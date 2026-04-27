@@ -16,7 +16,7 @@ public class GhostNet {
     private Double longitude;
 
     @Enumerated(EnumType.STRING)
-    private NetSize estiamtedSize;
+    private NetSize estimatedSize;
 
     @Enumerated(EnumType.STRING)
     private NetStatus status;
@@ -24,6 +24,10 @@ public class GhostNet {
     @ManyToOne
     @JoinColumn(name = "recovering_person_id")
     private RecoveringPerson recoveringPerson;
+
+    @ManyToOne
+    @JoinColumn(name = "reporting_person_id")
+    private ReportingPerson reportingPerson;
 
     public enum NetSize {
         SMALL, MEDIUM, LARGE, VERY_LARGE

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bergung eintragen</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 4px; }
+        .btn { padding: 10px 20px; background-color: #4a90a4; color: white; border: none; cursor: pointer; border-radius: 4px; }
+        .back { color: #4a90a4; text-decoration: none; }
+        .info-box { background-color: #f0f7fa; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+<h1>🌊 Ghost Net Fishing</h1>
+<a href="/" class="back">← Zurück zur Übersicht</a>
+
+<h2>Bergung eintragen</h2>
+<div class="info-box">
+    <p><strong>Netz ID:</strong> <span th:text="${net.id}"></span></p>
+    <p><strong>Position:</strong> <span th:text="${net.latitude}"></span>, <span th:text="${net.longitude}"></span></p>
+    <p><strong>Größe:</strong> <span th:text="${net.estimatedSize}"></span></p>
+</div>
+
+<form th:action="@{/recover/{id}(id=${net.id})}" method="post">
+    <h3>Deine Daten</h3>
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" required/>
+    </div>
+    <div class="form-group">
+        <label>Telefonnummer</label>
+        <input type="text" name="phoneNumber" required/>
+    </div>
+    <button type="submit" class="btn">Bergung eintragen</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Geisternetz melden</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 4px; }
+        .btn { padding: 10px 20px; background-color: #4a90a4; color: white; border: none; cursor: pointer; border-radius: 4px; }
+        .back { color: #4a90a4; text-decoration: none; }
+        h2 { color: #4a90a4; }
+    </style>
+</head>
+<body>
+<h1>🌊 Ghost Net Fishing</h1>
+<a href="/" class="back">← Zurück zur Übersicht</a>
+
+<h2>Geisternetz melden</h2>
+<form th:action="@{/report}" method="post">
+
+    <h3>Netz-Daten</h3>
+    <div class="form-group">
+        <label>Latitude (GPS)</label>
+        <input type="number" step="any" name="latitude" required/>
+    </div>
+    <div class="form-group">
+        <label>Longitude (GPS)</label>
+        <input type="number" step="any" name="longitude" required/>
+    </div>
+    <div class="form-group">
+        <label>Geschätzte Größe</label>
+        <select name="estimatedSize">
+            <option th:each="size : ${sizes}" th:value="${size}" th:text="${size}"></option>
+        </select>
+    </div>
+
+    <h3>Meldende Person</h3>
+    <div class="form-group">
+        <label>
+            <input type="checkbox" name="anonymous" value="true" id="anonCheck"
+                   onchange="togglePersonFields()"/>
+            Anonym melden
+        </label>
+    </div>
+    <div id="personFields">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name"/>
+        </div>
+        <div class="form-group">
+            <label>Telefonnummer</label>
+            <input type="text" name="phoneNumber"/>
+        </div>
+    </div>
+
+    <button type="submit" class="btn">Geisternetz melden</button>
+</form>
+
+<script>
+    function togglePersonFields() {
+        const anon = document.getElementById('anonCheck').checked;
+        document.getElementById('personFields').style.display = anon ? 'none' : 'block';
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zu bergende Netze</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #4a90a4; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .btn { padding: 6px 12px; background-color: #4a90a4; color: white;
+            border: none; cursor: pointer; text-decoration: none; border-radius: 4px; }
+        .back { color: #4a90a4; text-decoration: none; }
+    </style>
+</head>
+<body>
+<h1>🌊 Ghost Net Fishing</h1>
+<a href="/" class="back">← Zurück zur Übersicht</a>
+
+<h2>Zu bergende Netze</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Größe</th>
+        <th>Status</th>
+        <th>Aktion</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="net : ${nets}">
+        <td th:text="${net.id}"></td>
+        <td th:text="${net.latitude}"></td>
+        <td th:text="${net.longitude}"></td>
+        <td th:text="${net.estimatedSize}"></td>
+        <td th:text="${net.status}"></td>
+        <td>
+            <a th:href="@{/recover/{id}(id=${net.id})}" class="btn"
+               th:if="${net.status.name() == 'REPORTED'}">Bergen</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

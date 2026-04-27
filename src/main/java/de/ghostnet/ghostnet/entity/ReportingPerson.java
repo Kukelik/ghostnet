@@ -4,8 +4,8 @@ package de.ghostnet.ghostnet.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
 @Data
+@Entity
 @Table(name  ="reporting_person")
 public class ReportingPerson {
 

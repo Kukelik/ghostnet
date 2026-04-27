@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Weltkarte – Ghost Net Fishing</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        #map { height: 600px; width: 100%; border-radius: 8px; margin-top: 20px; }
+        .back { color: #4a90a4; text-decoration: none; }
+    </style>
+</head>
+<body>
+<h1>🌊 Ghost Net Fishing</h1>
+<a href="/" class="back">← Zurück zur Übersicht</a>
+<h2>Weltkarte – Zu bergende Geisternetze</h2>
+
+<div id="net-data" style="display:none">
+    <span th:each="net : ${nets}"
+          th:data-id="${net.id}"
+          th:data-lat="${net.latitude}"
+          th:data-lng="${net.longitude}"
+          th:data-size="${net.estimatedSize}"
+          th:data-status="${net.status}"
+          class="net-item">
+    </span>
+</div>
+
+<div id="map"></div>
+
+<script>
+    const map = L.map('map').setView([20, 0], 2);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    document.querySelectorAll('.net-item').forEach(el => {
+        const lat = parseFloat(el.dataset.lat);
+        const lng = parseFloat(el.dataset.lng);
+        const id = el.dataset.id;
+        const size = el.dataset.size;
+        const status = el.dataset.status;
+
+        if (lat && lng) {
+            const color = status === 'REPORTED' ? 'red' : 'orange';
+            const marker = L.circleMarker([lat, lng], {
+                radius: 10,
+                fillColor: color,
+                color: '#fff',
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 0.8
+            }).addTo(map);
+
+            marker.bindPopup(`
+                <strong>Geisternetz #${id}</strong><br/>
+                Größe: ${size}<br/>
+                Status: ${status}
+            `);
+        }
+    });
+</script>
+</body>
+</html>
